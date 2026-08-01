@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Risk Control Gateway</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">GLOBAL CONTENT SAFETY</p>
+        <h1>Risk Control Gateway</h1>
+        <p class="subtitle">Scan text or images and review policy decisions in one place.</p>
+      </div>
+      <div class="status"><span id="status-dot"></span><span id="status-text">Checking gateway…</span></div>
+    </header>
+
+    <section class="workspace" aria-label="Content scanner">
+      <div class="panel scan-panel">
+        <div class="tabs" role="tablist" aria-label="Content type">
+          <button class="tab active" id="text-tab" role="tab" aria-selected="true">Text scan</button>
+          <button class="tab" id="image-tab" role="tab" aria-selected="false">Image scan</button>
+        </div>
+
+        <label class="policy-label" for="policy">Policy profile</label>
+        <select id="policy">
+          <option value="eu">European Union baseline</option>
+          <option value="us-child-safety">US child-safety baseline</option>
+          <option value="conservative-market-baseline">Conservative-market baseline</option>
+        </select>
+
+        <form id="scan-form">
+          <div id="text-input-area">
+            <label for="text">Content to scan</label>
+            <textarea id="text" maxlength="10000" placeholder="Enter user-generated text to assess…" required></textarea>
+            <p class="hint"><span id="character-count">0</span>/10,000 characters</p>
+          </div>
+
+          <div id="image-input-area" hidden>
+            <label for="image">Image to scan</label>
+            <label class="drop-zone" for="image" id="drop-zone">
+              <input id="image" type="file" accept="image/png,image/jpeg,image/gif,image/webp" />
+              <span class="upload-icon">↑</span>
+              <strong>Choose an image</strong>
+              <span>PNG, JPG, GIF, or WEBP · up to 4 MB</span>
+            </label>
+            <div class="image-preview" id="image-preview" hidden>
+              <img id="preview-image" alt="Selected image preview" />
+              <div><strong id="image-name"></strong><button type="button" id="remove-image">Remove</button></div>
+            </div>
+          </div>
+
+          <div class="privacy-note">Content is sent to the configured scanner. This interface saves result metadata only; it does not keep your submitted text or image in its history.</div>
+          <button class="scan-button" id="scan-button" type="submit">Run risk scan</button>
+        </form>
+      </div>
+
+      <section class="panel result-panel" aria-live="polite">
+        <div class="panel-heading"><div><p class="eyebrow">LATEST RESULT</p><h2>Decision</h2></div></div>
+        <div id="empty-result" class="empty-state">Submit content to see the policy decision, risk score, and reasons here.</div>
+        <div id="result" hidden>
+          <div class="decision-row">
+            <div id="decision-badge" class="decision-badge">—</div>
+            <div><p class="muted">Risk score</p><p class="score"><span id="risk-score">0</span><small>/100</small></p></div>
+          </div>
+          <div class="meter"><span id="meter-fill"></span></div>
+          <div class="result-grid">
+            <div><p class="muted">Categories</p><div id="categories" class="chips"></div></div>
+            <div><p class="muted">Reasons</p><ul id="reasons" class="reasons"></ul></div>
+          </div>
+          <details><summary>Technical details</summary><dl><dt>Policy</dt><dd id="result-policy"></dd><dt>Trace ID</dt><dd id="trace-id"></dd></dl></details>
+        </div>
+        <p id="error" class="error" hidden></p>
+      </section>
+    </section>
+
+    <section class="panel history-panel">
+      <div class="panel-heading"><div><p class="eyebrow">LOCAL ACTIVITY LOG</p><h2>Scan history</h2></div><button id="clear-history" class="quiet-button" type="button">Clear history</button></div>
+      <p class="history-note">Stored only in this browser. Entries include results and timestamps, never raw submitted content.</p>
+      <div id="history" class="history-list"><p class="empty-history">No scans yet.</p></div>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

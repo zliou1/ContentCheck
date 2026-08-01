@@ -1,0 +1,30 @@
+policy_id: us-child-safety
+version: 0.1.0
+display_name: United States child-directed experience baseline
+selection: trusted_market_configuration
+default_decision: review
+review_severity: 4
+block_severity: 6
+hard_block_categories:
+  - child_sexual_content
+  - sexual_content_in_child_experience
+  - credible_violent_threat
+  - doxxing_or_personal_data_exposure
+  - regional_blocklist_match
+azure_blocklists: []
+review_categories:
+  - hate_or_harassment
+  - self_harm
+  - violence
+  - illegal_activity
+  - jailbreak_or_prompt_injection
+  - personal_data_exposure
+cultural_review_terms:
+  - sacred site vandalism
+privacy:
+  retain_raw_content: false
+  log_user_identifiers: false
+  collect_age_only_when_required: true
+human_review:
+  enabled: true
+  on_ambiguous_context: true

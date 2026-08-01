@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Content risk scan response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["trace_id", "decision", "risk_score", "policy", "categories", "reasons"],
+  "properties": {
+    "trace_id": { "type": "string", "minLength": 1 },
+    "decision": { "type": "string", "enum": ["allow", "review", "block"] },
+    "risk_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "type": "string" },
+        "version": { "type": "string" }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "reasons": {
+      "type": "array",
+      "items": { "type": "string" },
+      "maxItems": 5
+    },
+    "provider_results": { "type": "object" }
+  }
+}

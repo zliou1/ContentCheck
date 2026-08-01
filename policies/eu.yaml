@@ -1,0 +1,32 @@
+policy_id: eu
+version: 0.1.0
+display_name: European Union baseline
+selection: trusted_market_configuration
+default_decision: review
+review_severity: 4
+block_severity: 6
+hard_block_categories:
+  - child_sexual_content
+  - credible_violent_threat
+  - doxxing_or_personal_data_exposure
+  - regional_blocklist_match
+azure_blocklists: []
+review_categories:
+  - hate_or_harassment
+  - sexual_content
+  - self_harm
+  - violence
+  - illegal_activity
+  - cultural_or_religious_sensitivity
+  - jailbreak_or_prompt_injection
+  - personal_data_exposure
+cultural_review_terms:
+  - sacred site vandalism
+  - 宗教场所破坏
+privacy:
+  retain_raw_content: false
+  log_user_identifiers: false
+  require_policy_version_in_audit: true
+human_review:
+  enabled: true
+  on_ambiguous_context: true
