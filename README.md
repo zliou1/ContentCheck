@@ -2,46 +2,6 @@
 
 An open-source gateway design for reviewing user-generated text and images before they reach an international entertainment or social application.
 
-## Day 1 scope
-
-This repository includes a FastAPI gateway for Azure AI Content Safety text and image analysis, plus a local, auditable context engine. It does not require any OpenAI model.
-
-## MVP decisions
-
-- **Inputs:** user text and image references or uploads.
-- **Outcomes:** `allow`, `review`, or `block`.
-- **Initial regions:** European Union, United States (child-directed experience), and a configurable conservative-market baseline.
-- **Review dimensions:** platform safety, child safety, cultural or religious sensitivity, and adversarial/jailbreak intent.
-- **Privacy default:** do not persist raw user content in application logs; use a trace ID and minimal derived results instead.
-
-## Architecture
-
-```mermaid
-flowchart LR
-    A[Client application] --> B[Content Risk Control Gateway]
-    B --> C[Request validation and privacy filter]
-    C --> D[Azure AI Content Safety]
-    C --> E[Local context engine\nrules, PII, jailbreak]
-    D --> F[Regional policy engine]
-    E --> F
-    F --> G{Decision}
-    G -->|Allow| H[Application publishes content]
-    G -->|Review| I[Human-review queue]
-    G -->|Block| J[Safe rejection response]
-    F --> K[Minimal audit event]
-```
-
-## Repository layout
-
-```text
-gateway/              FastAPI service, policy engine, and Azure adapter
-policies/             versioned regional rules
-schemas/              request and decision JSON Schemas
-docs/                 product and compliance design notes
-evaluation/           datasets, runners, and reports (Day 6+)
-tests/                automated checks (Day 2+)
-```
-
 ## Local setup
 
 1. Copy `.env.example` to `.env` and fill the Content Safety endpoint and key. `.env.example` is only a template and is never read by the service.
@@ -87,11 +47,3 @@ The gateway detects jailbreak patterns, language hints, PII exposure, illegal-ac
 ## Initial decision contract
 
 The gateway follows [`schemas/scan-response.schema.json`](schemas/scan-response.schema.json). Provider scores inform a policy decision; they are not themselves the final moderation decision.
-
-## Day 1 acceptance checklist
-
-- [x] Scope and MVP boundaries documented
-- [x] Gateway architecture documented
-- [x] Initial regional policies defined
-- [x] Stable response contract defined
-- [x] Credential and privacy conventions documented
