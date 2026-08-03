@@ -7,7 +7,6 @@ An open-source gateway design for reviewing user-generated text and images befor
 1. Copy `.env.example` to `.env` and fill the Content Safety endpoint and key. `.env.example` is only a template and is never read by the service.
 2. Install dependencies: `pip install -r requirements.txt`.
 3. Start the gateway: `uvicorn gateway.main:app --reload`.
-4. Never commit `.env`, raw user content, or production moderation records.
 
 ## Configuration for contributors
 
