@@ -1,4 +1,4 @@
-**简体中文** | [English](README.en.md)
+**简体中文** | [English](README.md)
 
 # 全球多语言内容风险控制网关
 
